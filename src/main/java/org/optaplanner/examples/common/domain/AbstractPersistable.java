@@ -56,7 +56,14 @@ public abstract class AbstractPersistable implements Serializable, Comparable<Ab
     }
 
     public int hashCode() {
-        return new HashCodeBuilder().append(getClass()).append(id).toHashCode();
+        if (id != null) {
+            int iConstant = 37;
+            int iTotal = 17;
+            return (((iConstant * iTotal) + getClass().hashCode())) * iConstant + id.hashCode();
+        } else {
+            return super.hashCode();
+        }
+//        return new HashCodeBuilder().append(getClass()).append(id).toHashCode();
     }
 
     /**
