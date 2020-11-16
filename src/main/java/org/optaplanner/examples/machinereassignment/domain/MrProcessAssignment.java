@@ -88,15 +88,16 @@ public class MrProcessAssignment extends AbstractPersistable {
     }
 
     public long getUsage(MrResource resource) {
-        try {
-            return process.getUsage(resource);
-        }
-        catch(NoSuchElementException e) {
-            return 0;
-        }
-        catch(NullPointerException e) {
-        	return 0;
-        }
+        return process.getUsage(resource);
+//        try {
+//            return process.getUsage(resource);
+//        }
+//        catch(NoSuchElementException e) {
+//            return 0;
+//        }
+//        catch(NullPointerException e) {
+//        	return 0;
+//        }
     }
 
     public String getLabel() {

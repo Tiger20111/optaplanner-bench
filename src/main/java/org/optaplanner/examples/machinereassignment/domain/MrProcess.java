@@ -70,11 +70,16 @@ public class MrProcess extends AbstractPersistable {
     }
 
     public long getUsage(MrResource resource) {
-        Long usage = usageMap.get(resource);
-        if (usage == null) {
-            throw new NoSuchElementException();
+        Long usage;
+        if ((usage = usageMap.get(resource)) != null) {
+            return usage;
         }
-        return usage;
+        return 0;
+//        Long usage = usageMap.get(resource);
+//        if (usage == null) {
+//            throw new NoSuchElementException();
+//        }
+//        return usage;
     }
 
     public int getUsageMultiplicand() {

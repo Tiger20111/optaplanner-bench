@@ -38,12 +38,13 @@ public class MrMachineProbabilityWeightFactory implements SelectionProbabilityWe
             if (someProcessAssignment.getMachine() == machine) {
                 MrProcess process = someProcessAssignment.getProcess();
                 for (MrResource resource : machineReassignment.getResourceList()) {
-                    try {
-                        usage[resource.getIndex()] += process.getUsage(resource);
-                    }
-                    catch(NoSuchElementException e) {
-                        // ignore
-                    }
+                    usage[resource.getIndex()] += process.getUsage(resource);
+//                    try {
+//                        usage[resource.getIndex()] += process.getUsage(resource);
+//                    }
+//                    catch(NoSuchElementException e) {
+//                        // ignore
+//                    }
                 }
             }
         }
