@@ -28,16 +28,7 @@ import org.optaplanner.core.api.score.constraint.ConstraintMatchTotal;
 import org.optaplanner.core.api.score.constraint.Indictment;
 import org.optaplanner.core.impl.score.director.incremental.AbstractIncrementalScoreCalculator;
 import org.optaplanner.core.impl.score.director.incremental.ConstraintMatchAwareIncrementalScoreCalculator;
-import org.optaplanner.examples.machinereassignment.domain.MachineReassignment;
-import org.optaplanner.examples.machinereassignment.domain.MrBalancePenalty;
-import org.optaplanner.examples.machinereassignment.domain.MrGlobalPenaltyInfo;
-import org.optaplanner.examples.machinereassignment.domain.MrLocation;
-import org.optaplanner.examples.machinereassignment.domain.MrMachine;
-import org.optaplanner.examples.machinereassignment.domain.MrMachineCapacity;
-import org.optaplanner.examples.machinereassignment.domain.MrNeighborhood;
-import org.optaplanner.examples.machinereassignment.domain.MrProcessAssignment;
-import org.optaplanner.examples.machinereassignment.domain.MrResource;
-import org.optaplanner.examples.machinereassignment.domain.MrService;
+import org.optaplanner.examples.machinereassignment.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +45,7 @@ public class MachineReassignmentIncrementalScoreCalculator
 
     private Map<MrService, MrServiceScorePart> serviceScorePartMap;
     private Map<Integer, Integer> movedProcessCountToServiceCount;
+
     private int serviceMoveCost;
     private Map<MrMachine, MrMachineScorePart> machineScorePartMap;
 
@@ -151,16 +143,18 @@ public class MachineReassignmentIncrementalScoreCalculator
 
         private final MrService service;
 
-        private Map<MrLocation, Integer> locationBag;
-        private Map<MrNeighborhood, Integer> neighborhoodBag;
+        private MyHashMap locationBag;
+        private MyHashMap neighborhoodBag;
+//        private Map<MrLocation, Integer> locationBag;
+//        private Map<MrNeighborhood, Integer> neighborhoodBag;
         private int movedProcessCount;
 
         private MrServiceScorePart(MrService service) {
             this.service = service;
-            locationBag = new HashMap<>(machineReassignment.getLocationList().size());
+            locationBag = new MyHashMap();
             hardScore -= service.getLocationSpread();
             List<MrNeighborhood> neighborhoodList = machineReassignment.getNeighborhoodList();
-            neighborhoodBag = new HashMap<>(neighborhoodList.size());
+            neighborhoodBag = new MyHashMap();
             for (MrNeighborhood neighborhood : neighborhoodList) {
                 neighborhoodBag.put(neighborhood, 0);
             }
